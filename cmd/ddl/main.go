@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	configpath := flag.String("f", "", "設定ファイル（config.toml）の格納パス")
+	configpath := flag.String("f", "./config.toml", "設定ファイル（config.toml）の格納パス")
 	var config ddl.Config
 	_, err := toml.DecodeFile(*configpath, &config)
 	if err != nil {

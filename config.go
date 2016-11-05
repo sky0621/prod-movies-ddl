@@ -1,12 +1,12 @@
-package prodmoviesddl
+package ddl
 
 type Config struct {
 	DB Database `toml:"database"`
 }
 
 type Database struct {
-	server         string
-	ports          []int
-	connection_max int
-	enabled        bool
+	Server         string
+	Ports          []int
+	Connection_max int
+	Enabled        bool
 }
