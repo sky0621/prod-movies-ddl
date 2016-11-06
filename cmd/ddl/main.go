@@ -4,17 +4,25 @@ import (
 	"flag"
 	"log"
 
-	ddl "github.com/sky0621/prod-movies-ddl"
+	"github.com/Sirupsen/logrus"
+	md "github.com/sky0621/prod-movies-ddl"
 
 	"github.com/BurntSushi/toml"
 )
 
 func main() {
 	configpath := flag.String("f", "./config.toml", "設定ファイル（config.toml）の格納パス")
-	var config ddl.Config
+	var config md.Config
 	_, err := toml.DecodeFile(*configpath, &config)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("%#+v", config)
+
+	err = md.SetupLogger(config.Log)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	logrus.Println("App Start.")
+
 }

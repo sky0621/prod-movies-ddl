@@ -1,12 +1,18 @@
-package ddl
+package moviesddl
 
 type Config struct {
-	DB Database `toml:"database"`
+	DB  *DBConfig  `toml:"database"`
+	Log *LogConfig `toml:"logger"`
 }
 
-type Database struct {
-	Server         string
-	Ports          []int
-	Connection_max int
-	Enabled        bool
+type DBConfig struct {
+	Server        string
+	Ports         []int
+	ConnectionMax int `toml:"connection_max"`
+	Enabled       bool
+}
+
+type LogConfig struct {
+	Filepath string
+	LogLevel string `toml:"log_level"`
 }
