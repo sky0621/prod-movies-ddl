@@ -4,7 +4,6 @@ import (
 	"flag"
 	"log"
 
-	"github.com/Sirupsen/logrus"
 	md "github.com/sky0621/prod-movies-ddl"
 
 	"github.com/BurntSushi/toml"
@@ -18,11 +17,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = md.SetupLogger(config.Log)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	logrus.Println("App Start.")
+	logger, logfile := md.SetupLogger(&config)
+	defer logfile.Close()
+	logger.Info("App Start.")
 
 }

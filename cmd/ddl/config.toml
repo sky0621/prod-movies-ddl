@@ -1,4 +1,7 @@
 
+[server]
+host = "example.com"
+
 [database]
 server = "127.0.0.1"
 ports = [ 8001, 8001, 8002 ]
@@ -7,4 +10,4 @@ enabled = true
 
 [logger]
 filepath = "movies-ddl.log"
-log_level = "debug"
+log_level = "debug" # debug, info, warning, error, fatal

@@ -1,28 +1,36 @@
 package moviesddl
 
 import (
-	"log"
 	"os"
 
 	"github.com/Sirupsen/logrus"
 )
 
-func SetupLogger(config *LogConfig) error {
-	logrus.SetFormatter(&logrus.JSONFormatter{})
+// SetupLogger ... ログ設定の初期化
+func SetupLogger(config *Config) (*logrus.Entry, *os.File) {
+	logrusEntry := logrus.WithFields(logrus.Fields{
+		"host":   config.Server.Host,
+		"system": "movies-ddl",
+	})
+	logrusEntry.Logger.Formatter = new(logrus.TextFormatter)
+	logrusEntry.Logger.Formatter = new(logrus.JSONFormatter) // default
 
-	logfile, err := os.Create(config.Filepath)
-	if err != nil {
-		log.Fatal(err)
+	_, err := os.Stat(config.Log.Filepath)
+	var logfile *os.File
+	if err == nil {
+		logfile, err = os.OpenFile(config.Log.Filepath, os.O_APPEND, 0666)
+	} else {
+		logfile, err = os.Create(config.Log.Filepath)
 	}
-	defer logfile.Close()
-	// logrus.SetOutput(logfile)
-
-	level, err := logrus.ParseLevel(config.LogLevel)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
-	logrus.SetLevel(level)
+	logrusEntry.Logger.Out = logfile
 
-	logrus.Println("Test")
-	return nil
+	level, err := logrus.ParseLevel(config.Log.LogLevel)
+	if err != nil {
+		panic(err)
+	}
+	logrusEntry.Logger.Level = level
+	return logrusEntry, logfile
 }
