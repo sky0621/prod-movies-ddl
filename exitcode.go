@@ -7,5 +7,4 @@ const (
 	ExitCodeLogSetupError
 	ExitCodeConfigError
 	ExitCodeError
-	ExitCodePanic
 )

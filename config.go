@@ -28,10 +28,10 @@ type LogConfig struct {
 	LogLevel string `toml:"log_level"`
 }
 
-// New ... 設定の取込
-func New(configpath *string) (*Config, error) {
+// NewConfig ... 設定の取込
+func NewConfig(configpath string) (*Config, error) {
 	var config Config
-	_, err := toml.DecodeFile(*configpath, &config)
+	_, err := toml.DecodeFile(configpath, &config)
 	if err != nil {
 		return nil, err
 	}

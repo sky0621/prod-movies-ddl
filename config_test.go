@@ -1,7 +1,14 @@
 package moviesddl
 
-import "testing"
+import (
+	"log"
+	"testing"
+)
 
 func TestNew(t *testing.T) {
-	// FIXME
+	config, err := NewConfig("testdata/config/config.toml")
+	if err != nil {
+		t.Fatal(err)
+	}
+	log.Printf("%#+v", config)
 }

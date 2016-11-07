@@ -6,8 +6,6 @@ import (
 	"os"
 
 	md "github.com/sky0621/prod-movies-ddl"
-
-	"github.com/BurntSushi/toml"
 )
 
 func main() {
@@ -16,6 +14,14 @@ func main() {
 
 func realMain() int {
 	// treat panic
+	defer func() {
+		err := recover()
+		if err != nil {
+			log.Println("Panic occured.")
+			// FIXME 後始末
+
+		}
+	}()
 
 	return wrappedMain()
 }
@@ -23,13 +29,13 @@ func realMain() int {
 func wrappedMain() int {
 
 	configpath := flag.String("f", "./config.toml", "設定ファイル（config.toml）の格納パス")
-	var config md.Config
-	_, err := toml.DecodeFile(*configpath, &config)
+	flag.Parse()
+	config, err := md.NewConfig(*configpath)
 	if err != nil {
-		log.Fatal(err)
+		return md.ExitCodeConfigError
 	}
 
-	logger, logfile := md.SetupLogger(&config)
+	logger, logfile := md.SetupLogger(config)
 	defer logfile.Close()
 	logger.Info("App Start.")
 
