@@ -1,0 +1,12 @@
+hash: a3656e8965ffc5a606d0d29131b9d25cadbc996d39da5ab84612c70347b460e9
+updated: 2016-11-07T23:55:17.4526656+09:00
+imports:
+- name: github.com/BurntSushi/toml
+  version: bbd5bb678321a0d6e58f1099321dfa73391c1b6f
+- name: github.com/Sirupsen/logrus
+  version: d26492970760ca5d33129d2d799e34be5c4782eb
+- name: golang.org/x/sys
+  version: c200b10b5d5e122be351b67af224adc6128af5bf
+  subpackages:
+  - unix
+testImports: []

@@ -22,3 +22,8 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+vendor/
+
+testdata/logger/normal.log
+
