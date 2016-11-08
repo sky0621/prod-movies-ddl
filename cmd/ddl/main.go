@@ -28,23 +28,23 @@ func realMain() int {
 }
 
 func wrappedMain() int {
-
 	configpath := flag.String("f", "./config.toml", "設定ファイル（config.toml）の格納パス")
 	flag.Parse()
-	config, err := md.NewConfig(*configpath)
+	ctx, err := md.NewCtx(*configpath)
 	if err != nil {
-		return md.ExitCodeConfigError
+		return md.ExitCodeSetupError
 	}
-
-	logger, logfile := md.SetupLogger(config)
-	defer logfile.Close()
-	logger.Info("App Start.")
+	defer ctx.Close()
+	ctx.Logger.Entry.Info("App Start.")
 
 	c := cli.NewCLI("movies-ddl", "0.1.0")
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
 		"create": func() (cli.Command, error) {
-			return &md.CreateCommand{Config: config}, nil
+			return &md.CreateCommand{Ctx: ctx}, nil
+		},
+		"drop": func() (cli.Command, error) {
+			return &md.DropCommand{Ctx: ctx}, nil
 		},
 	}
 	code, err := c.Run()

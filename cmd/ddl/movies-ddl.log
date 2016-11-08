@@ -1,2 +1,7 @@
 {"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T00:04:41+09:00"}
 {"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T00:04:50+09:00"}
+{"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T05:25:05+09:00"}
+{"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T05:30:58+09:00"}
+{"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T05:31:07+09:00"}
+{"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T06:25:43+09:00"}
+{"host":"example.com","level":"info","msg":"App Start.","system":"movies-ddl","time":"2016-11-09T06:25:49+09:00"}
