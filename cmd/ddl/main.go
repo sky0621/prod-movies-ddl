@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/mitchellh/cli"
 	md "github.com/sky0621/prod-movies-ddl"
 )
 
@@ -39,5 +40,16 @@ func wrappedMain() int {
 	defer logfile.Close()
 	logger.Info("App Start.")
 
-	return md.ExitCodeOK
+	c := cli.NewCLI("movies-ddl", "0.1.0")
+	c.Args = os.Args[1:]
+	c.Commands = map[string]cli.CommandFactory{
+		"create": func() (cli.Command, error) {
+			return &md.CreateCommand{Config: config}, nil
+		},
+	}
+	code, err := c.Run()
+	if err != nil {
+		log.Println(err)
+	}
+	return code
 }
